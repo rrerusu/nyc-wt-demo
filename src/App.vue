@@ -1,12 +1,18 @@
 <script setup>
+import { ref } from 'vue';
+
+let toxicityOutput = ref('');
+
 async function sendText(content) {
 	try {
 		let request = await fetch("https://httpbin.org/post", {
 			method: 'POST',
 			content
 		});
-		document.getElementById('toxicityOutput').value = request.body;
-		// console.log(request);
+		// console.log(request.json());
+		// this.toxicityOutput = await request.json();
+		this.toxicityOutput = content;
+		console.log(this.toxicityOutput);
 		return request || [];
 	} catch (error) {
 			console.error(error);
@@ -15,11 +21,7 @@ async function sendText(content) {
 </script>
 
 <template>
-  <h3 id="demo">Test</h3>
-
-  <form>
-    <input id="inputText" name="inputText">
-    <button name="SubmitTextButton" type="button" onclick="sendText(document.getElementById('inputText').value)">Submit</button>
-    <p id="toxicityOutput"></p>
-  </form>
+	<h3>{{toxicityOutput}}</h3>
+	<input v-model="inputText">
+	<button name="SubmitTextButton" type="button" @click="sendText(inputText)">Submit</button>
 </template>
