@@ -1,9 +1,21 @@
 <h3 id="demo">Test</h3>
-<input>
-<button type="submit" onclick="myFunction()">Submit</button>
+
+<form>
+	<input id="inputText" name="inputText">
+	<button type="button" onclick="sendText(document.getElementById('inputText').value)">Submit</button>
+</form>
 
 <script>
-function myFunction() {
-  document.getElementById("demo").style.color = "red";
+function sendText(content) {
+	try {
+		console.log(content);
+		let request = fetch("https://httpbin.org/post", {
+			method: 'POST',
+			content
+		});
+		return request || [];
+	} catch (error) {
+			console.error(error);
+	}
 }
 </script>
