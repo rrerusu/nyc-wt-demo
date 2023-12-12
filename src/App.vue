@@ -10,8 +10,7 @@ async function sendText(content) {
 			content
 		});
 		// console.log(request.json());
-		// this.toxicityOutput = await request.json();
-		this.toxicityOutput = content;
+		this.toxicityOutput = await request.json();
 		console.log(this.toxicityOutput);
 		return request || [];
 	} catch (error) {
